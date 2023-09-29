@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Build
+!dist/**/*
+!Dockerfile
+!docker-compose.yml
+
+# Source
+!package.json
+!package-lock.json
+!LICENSE-MIT
