@@ -29,22 +29,17 @@
     "**/*.ts": "tsc-files --noEmit"
   },
   "dependencies": {
-    "zksync-cli": "^0.6.0-alpha.19"
+    "zksync-cli": "^0.11.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@matterlabs/eslint-config-typescript": "^1.1.2",
     "@matterlabs/prettier-config": "^1.0.3",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/github": "^8.1.0",
-    "@semantic-release/npm": "^8.0.3",
-    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/node": "^20.6.3",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
-    "semantic-release": "^18.0.1",
+    "semantic-release": "^22.0.8",
     "ts-node": "^10.9.1",
     "tsc-files": "^1.1.4"
   },
