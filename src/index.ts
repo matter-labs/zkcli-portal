@@ -1,7 +1,7 @@
 import path from "path";
 import { Module, files, docker, ModuleCategory } from "zksync-cli/lib";
 
-import type { ConfigHandler } from "zksync-cli/lib";
+import type { ConfigHandler, NodeInfo } from "zksync-cli/lib";
 
 type ModuleConfig = {
   version?: string;
@@ -26,6 +26,32 @@ export default class SetupModule extends Module<ModuleConfig> {
 
   composeFile = path.join(files.getDirPath(import.meta.url), "../docker-compose.yml");
 
+  inMemoryNode = {
+    id: 260,
+    rpcUrl: "http://127.0.0.1:8011",
+  };
+  dockerizedNode = {
+    id: 270,
+    rpcUrl: "http://127.0.0.1:3050",
+    l1Chain: {
+      id: 9,
+      rpcUrl: "http://127.0.0.1:8545",
+    },
+  };
+  async isNodeSupported(nodeInfo: NodeInfo) {
+    if (nodeInfo.id === this.inMemoryNode.id && nodeInfo.rpcUrl === this.inMemoryNode.rpcUrl) {
+      return true;
+    } else if (
+      nodeInfo.id === this.dockerizedNode.id &&
+      nodeInfo.rpcUrl === this.dockerizedNode.rpcUrl &&
+      nodeInfo.l1Chain?.id === this.dockerizedNode.l1Chain.id &&
+      nodeInfo.l1Chain?.rpcUrl === this.dockerizedNode.l1Chain.rpcUrl
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Retrieves the type of node being used based on the L1 node presence.
    *
@@ -42,7 +68,7 @@ export default class SetupModule extends Module<ModuleConfig> {
    */
   async getNodeType(): Promise<ModuleConfig["nodeType"]> {
     const nodeInfo = await this.configHandler.getNodeInfo();
-    return nodeInfo.l1 ? "docker" : "memory";
+    return nodeInfo.l1Chain ? "docker" : "memory";
   }
 
   async isInstalled() {

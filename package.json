@@ -29,7 +29,7 @@
     "**/*.ts": "tsc-files --noEmit"
   },
   "dependencies": {
-    "zksync-cli": "^0.11.0"
+    "zksync-cli": "^1.2.0-alpha.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
